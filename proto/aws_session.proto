@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+message UserInfo
+{
+  int64 encrypt_key_id = 1;
+  int64 some_id = 2;
+  string account_id = 3;
+  bytes IV = 4;
+  bytes user_encrypted_data = 5;
+}
+
+
+message SessionType33Message
+{
+  string name = 1;
+  int64 sign_key_id = 2;
+  string region = 3;
+  bytes DER_Sig = 4;
+  UserInfo user = 5;
+  uint32 creation_unixtime = 6;
+  bytes aux_data = 7;
+}
+
+
+message SessionType23Message
+{
+  string name = 1;
+  int64 encrypt_key_id = 2;
+  bytes IV = 3;
+  bytes user_encrypted_data = 4;
+  uint32 creation_unixtime = 5;
+  bytes unknown3 = 6;
+}
+
+message SessionType21Message
+{
+  string name = 1;
+  int64 encrypt_key_id = 2;
+  bytes IV = 3;
+  bytes user_encrypted_data = 4;
+  uint32 creation_unixtime = 5;
+}
+
+
+
+
