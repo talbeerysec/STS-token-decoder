@@ -105,11 +105,18 @@ def parse_session(base64_session):
         
     return sess
 
+def extract_public_key(token1,token2):
+    sess1 = parse_session(token1)
+    sess2 = parse_session(token2)
+
+    return sess1.session_pb.sign_key_id, get_region_public_key(sess1,sess2)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
+    if len(sys.argv) == 2: #parse session
         sess = parse_session(sys.argv[1])
-        sess.pretty_print() 
+        sess.pretty_print()
+    if len(sys.argv) == 3:
+        print(extract_public_key(sys.argv[1],sys.argv[2]))
     
 
 #basic tests
@@ -146,14 +153,7 @@ def test_parse_all_types():
 
 # extract public key
 
-def test_extract_public_key(token1,token2):
-    sess1 = parse_session(token1)
-    sess1.pretty_print()
 
-    sess2 = parse_session(token2)
-    sess2.pretty_print()
-
-    print(get_region_public_key(sess1,sess2))
 
 #test_extract_public_key(session_us_west_2_1,session_us_west_2_2)
 # session_us_west_2_1 intersection session_us_west_2_2 11.7.24
